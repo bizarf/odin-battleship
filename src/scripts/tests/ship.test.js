@@ -1,6 +1,6 @@
 import Ship from '../ship';
 
-const carrier = new Ship(5);
+const carrier = new Ship('carrier', 5);
 
 test('checks if the hit function increases the hit counts', () => {
     expect(carrier.hit()).toBe(1);
