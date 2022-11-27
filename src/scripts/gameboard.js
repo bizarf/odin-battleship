@@ -21,6 +21,7 @@ class Gameboard {
         }
     }
 
+    // place the ship on the board, and then push the ship object into the board's ship array. 
     placeShip(pos, direction, ship, length) {
         if (this.isPlaceable(pos, length, direction) === true) {
             const gameShip = new Ship(ship, length)
@@ -44,6 +45,7 @@ class Gameboard {
     isPlaceable(pos, length, direction) {
         if (direction === 'hor') {
             for (let i = 0; i < length; i++) {
+                // prevent placing a ship off the board
                 if ((pos[1] + i) >= 7) return
 
                 if (this.board[pos[0]][pos[1] + i].ship === null) {
@@ -63,17 +65,31 @@ class Gameboard {
         return false
     }
 
+    // takes a position and checks if a ship is there. if so then run the hit function for that specific ship, and also set the hit property to true for this square. if no ship, then set the missedshot property to true for that square.
     receiveAttack(pos) {
-        // take position
-        // check if ship is there
-        // sends the hit function to the correct ship
-        // if no ship adds missed shot
+        const attackPosition = this.board[pos[0]][pos[1]];
+
+        if (attackPosition.ship != null) {
+            const shipIndex = this.getShipIndex(attackPosition.ship);
+            this.ships[shipIndex].hit();
+            attackPosition.hit = true;
+        }
+
+        if (attackPosition.ship === null) {
+            attackPosition.missedShot = true;
+        }
     }
 
+    // search the ships array, and return the index for the specific ship name. 
+    getShipIndex(shipPiece) {
+        return this.ships.map(ship => ship.name).indexOf(shipPiece)
+    }
+
+    // search the ships array, and uses the every function to check if all of the isSunk() function returns are either true or false. If all are true, then it'll return true. If not, then false. 
     checkAllShipStatus() {
-        // go through the ships array
-        // invoke the isSunk status to check if each ship is sunk
-        // if all ships have sunk, then return game over?
+        return this.ships.map(ship => ship.isSunk()).every(status => {
+            if (status === true) return true;
+        })
     };
 }
 
