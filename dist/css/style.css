@@ -1,1 +1,57 @@
 @import url(./modern-normalize.css);
+
+div {
+    border: 1px solid black;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    flex: 1 0 auto;
+    display: flex;
+    align-items: center;
+}
+
+header {
+    text-align: center;
+}
+
+footer {
+    flex-shrink: 0;
+    text-align: center;
+    font-size: 12px;
+}
+
+.playerBoardSquare,
+.computerBoardSquare {
+    width: 50px;
+    height: 50px;
+}
+
+.playerBoard,
+.computerBoard {
+    display: grid;
+    grid-template-columns: repeat(8, 50px);
+    width: 50%;
+    justify-content: center;
+}
+
+.missedShot {
+    background-color: #38bdf8;
+}
+
+.shipStrike {
+    background-color: #dc2626;
+}
+
+.ship {
+    background-color: #94a3b8;
+}

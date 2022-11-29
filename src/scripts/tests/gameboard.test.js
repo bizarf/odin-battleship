@@ -55,8 +55,8 @@ test('miss is recorded on the board', () => {
     board.placeShip([0, 0], 'vert', 'destroyer', 2);
     board.receiveAttack([6, 6]);
     expect(board.board[6][6].missedShot).toBe(true);
-    expect(board.board[6][6].ship).toBe(null);
-    expect(board.board[6][6].hit).toBe(null);
+    expect(board.board[6][6].ship).toBe(false);
+    expect(board.board[6][6].hit).toBe(false);
 })
 
 test('checks and returns true if all boats on the board have been sunk', () => {
