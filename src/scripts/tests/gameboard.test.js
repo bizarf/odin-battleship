@@ -59,6 +59,13 @@ test('miss is recorded on the board', () => {
     expect(board.board[6][6].hit).toBe(false);
 })
 
+test('returns false if the square already has a hit or a missed shot recorded', () => {
+    const board = new Gameboard();
+    board.placeShip([0, 0], 'hor', 'destroyer', 2);
+    board.receiveAttack([0, 0]);
+    expect(board.receiveAttack([0, 0])).toBe(false);
+})
+
 test('checks and returns true if all boats on the board have been sunk', () => {
     const board = new Gameboard();
     board.placeShip([0, 0], 'vert', 'destroyer', 1);

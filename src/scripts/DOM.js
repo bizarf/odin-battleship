@@ -1,5 +1,6 @@
 import {
-    human
+    human,
+    computer
 } from "../index";
 
 const playerBoard = document.querySelector('.playerBoard')
@@ -43,20 +44,64 @@ export function getComputerBoardPosition() {
         const x = parseInt(square.dataset.pos[0])
         const y = parseInt(square.dataset.pos[2])
         const position = [x, y]
-        console.log(position)
+        // console.log(position)
+        if (computer.board.checkAllShipStatus() === false) {
+            computer.board.receiveAttack(position)
+            renderComputerBoard()
+        }
+        // human.endTurn()
+        if (human.board.checkAllShipStatus() === false) {
+            computer.computerPlay()
+            renderPlayerBoard()
+        }
+
+        if (computer.board.checkAllShipStatus() === true) {
+            alert('a winner is you')
+        }
+
+        if (human.board.checkAllShipStatus() === true) {
+            alert('a loser is you')
+        }
     }))
 }
 
 // square.classList.add('shipStrike')
 
-export function renderPlayerShips() {
+export function renderPlayerBoard() {
     const playerBoardSquare = document.querySelectorAll('.playerBoardSquare');
     playerBoardSquare.forEach(square => {
+        // convert the dataset pos into numbers and then make that a variable so that it's easier to handle
         const x = parseInt(square.dataset.pos[0])
         const y = parseInt(square.dataset.pos[2])
-        const position = [x, y]
-        if (human.board.board[position[0]][position[1]].ship != false) {
+        const position = human.board.board[x][y];
+        if (position.ship != false) {
             square.classList.add('ship')
+        }
+
+        // if ship is hit remove the ship class and add the strike class
+        if (position.hit === true) {
+            square.classList.remove('ship')
+            square.classList.add('shipStrike')
+        }
+
+        if (position.missedShot === true) {
+            square.classList.add('missedShot')
+        }
+    })
+}
+
+export function renderComputerBoard() {
+    const computerBoardSquare = document.querySelectorAll('.computerBoardSquare');
+    computerBoardSquare.forEach(square => {
+        const x = parseInt(square.dataset.pos[0]);
+        const y = parseInt(square.dataset.pos[2]);
+        const position = computer.board.board[x][y];
+        if (position.hit === true) {
+            square.classList.add('shipStrike');
+        }
+
+        if (position.missedShot === true) {
+            square.classList.add('missedShot');
         }
     })
 }

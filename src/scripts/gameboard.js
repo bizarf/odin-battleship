@@ -48,7 +48,7 @@ class Gameboard {
 
         if (direction === 'hor') {
             // prevent placing a ship off the board
-            if (pos[1] + length - 1 >= 7) return false
+            if (pos[1] + length - 1 > 7) return false
 
             for (let i = 0; i < length; i++) {
                 if (this.board[pos[0]][pos[1] + i].ship === false) {
@@ -58,7 +58,7 @@ class Gameboard {
         }
 
         if (direction === 'vert') {
-            if (pos[0] + length - 1 >= 7) return false
+            if (pos[0] + length - 1 > 7) return false
 
             for (let i = 0; i < length; i++) {
                 if (this.board[pos[0] + i][pos[1]].ship === false) {
@@ -77,14 +77,20 @@ class Gameboard {
     receiveAttack(pos) {
         const attackPosition = this.board[pos[0]][pos[1]];
 
+        if (attackPosition.hit === true || attackPosition.missedShot === true) {
+            return false;
+        }
+
         if (attackPosition.ship != false) {
             const shipIndex = this.getShipIndex(attackPosition.ship);
             this.ships[shipIndex].hit();
             attackPosition.hit = true;
+            return true
         }
 
         if (attackPosition.ship === false) {
             attackPosition.missedShot = true;
+            return true
         }
     }
 
