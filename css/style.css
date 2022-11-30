@@ -44,6 +44,17 @@ footer {
     justify-content: center;
 }
 
+.computerBoardSquare {
+    cursor: pointer;
+}
+
+.missedShot,
+.shipStrike,
+.ship {
+    cursor: default;
+    pointer-events: none;
+}
+
 .missedShot {
     background-color: #38bdf8;
 }
