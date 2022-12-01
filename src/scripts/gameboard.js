@@ -5,6 +5,11 @@ class Gameboard {
         this.board = [];
         this.makeBoard();
         this.ships = [];
+        this.carrierPlaced = false;
+        this.battleshipPlaced = false;
+        this.cruiserPlaced = false;
+        this.submarinePlaced = false;
+        this.destroyerPlaced = false;
     }
 
     // make a 8 x 8 game board with a 2 dimensional array
@@ -19,6 +24,11 @@ class Gameboard {
                 };
             }
         }
+    }
+
+    resetBoard() {
+        this.board = [];
+        this.makeBoard()
     }
 
     // place the ship on the board, and then push the ship object into the board's ship array. 
@@ -48,7 +58,7 @@ class Gameboard {
 
         if (direction === 'hor') {
             // prevent placing a ship off the board
-            if (pos[1] + length - 1 > 7) return false
+            if ((pos[1] + length) - 1 > 7) return false
 
             for (let i = 0; i < length; i++) {
                 if (this.board[pos[0]][pos[1] + i].ship === false) {
@@ -58,11 +68,11 @@ class Gameboard {
         }
 
         if (direction === 'vert') {
-            if (pos[0] + length - 1 > 7) return false
+            if ((pos[0] + length) - 1 > 7) return false
 
             for (let i = 0; i < length; i++) {
                 if (this.board[pos[0] + i][pos[1]].ship === false) {
-                    arr.push(this.board[pos[0] + 1][pos[1]].ship)
+                    arr.push(this.board[pos[0] + i][pos[1]].ship)
                 }
             }
         }
@@ -105,6 +115,67 @@ class Gameboard {
             if (status === true) return true;
         })
     };
+
+    // place all 5 ship pieces randomly on the board
+    placeShipTeamRandomly() {
+        const shipDirection = ['hor', 'vert']
+        const randomShipDirection = Math.floor(Math.random() * 2);
+        const x = Math.floor(Math.random() * 8)
+        const y = Math.floor(Math.random() * 8)
+        const position = [x, y];
+
+        if (this.carrierPlaced === false) {
+            this.placeShipPieceRandomly(position, 5, shipDirection, randomShipDirection, 'carrier')
+        }
+
+        if (this.battleshipPlaced === false) {
+            this.placeShipPieceRandomly(position, 4, shipDirection, randomShipDirection, 'battleship')
+        }
+
+        if (this.cruiserPlaced === false) {
+            this.placeShipPieceRandomly(position, 3, shipDirection, randomShipDirection, 'cruiser')
+        }
+
+        if (this.submarinePlaced === false) {
+            this.placeShipPieceRandomly(position, 3, shipDirection, randomShipDirection, 'submarine')
+        }
+
+        if (this.destroyerPlaced === false) {
+            this.placeShipPieceRandomly(position, 2, shipDirection, randomShipDirection, 'destroyer')
+        }
+    }
+
+    // function that puts the piece in the parameters on the board. 
+    placeShipPieceRandomly(position, length, shipDirection, randomShipDirection, ship) {
+        if (this.isPlaceable(position, length, shipDirection[randomShipDirection]) === false) {
+            this.placeShipTeamRandomly()
+        }
+        if (this.isPlaceable(position, length, shipDirection[randomShipDirection]) === true) {
+            this.placeShip(position, shipDirection[randomShipDirection], ship, length);
+            this.shipPlacedTrue(ship)
+        }
+    }
+
+    // switch statement to mark the ship has been placed on the board. required for the recursion that happens in placeShipTeamRandomly, and placeShipPieceRandomly. without this, the function will never end. 
+    shipPlacedTrue(shipPlaced) {
+        switch (shipPlaced) {
+            case 'carrier':
+                this.carrierPlaced = true;
+                break;
+            case 'battleship':
+                this.battleshipPlaced = true;
+                break;
+            case 'cruiser':
+                this.cruiserPlaced = true;
+                break;
+            case 'submarine':
+                this.submarinePlaced = true;
+                break;
+            case 'destroyer':
+                this.destroyerPlaced = true;
+                break;
+        }
+    }
 }
 
 export default Gameboard;

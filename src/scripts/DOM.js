@@ -38,35 +38,6 @@ export const getPlayerBoardPosition = () => {
     }))
 }
 
-export function getComputerBoardPosition() {
-    const computerBoardSquare = document.querySelectorAll('.computerBoardSquare');
-    computerBoardSquare.forEach(square => square.addEventListener('click', () => {
-        const x = parseInt(square.dataset.pos[0])
-        const y = parseInt(square.dataset.pos[2])
-        const position = [x, y]
-        // console.log(position)
-        if (computer.board.checkAllShipStatus() === false) {
-            computer.board.receiveAttack(position)
-            renderComputerBoard()
-        }
-        // human.endTurn()
-        if (human.board.checkAllShipStatus() === false) {
-            computer.computerPlay()
-            renderPlayerBoard()
-        }
-
-        if (computer.board.checkAllShipStatus() === true) {
-            alert('a winner is you')
-        }
-
-        if (human.board.checkAllShipStatus() === true) {
-            alert('a loser is you')
-        }
-    }))
-}
-
-// square.classList.add('shipStrike')
-
 export function renderPlayerBoard() {
     const playerBoardSquare = document.querySelectorAll('.playerBoardSquare');
     playerBoardSquare.forEach(square => {
