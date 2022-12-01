@@ -16,8 +16,7 @@ body {
 
 .content {
     flex: 1 0 auto;
-    display: flex;
-    align-items: center;
+    padding-top: 50px;
 }
 
 header {
@@ -65,4 +64,14 @@ footer {
 
 .ship {
     background-color: #94a3b8;
+}
+
+.disableBoards {
+    opacity: 50%;
+    pointer-events: none;
+}
+
+.gameContent {
+    display: flex;
+    /* align-items: center; */
 }
