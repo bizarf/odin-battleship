@@ -1,5 +1,10 @@
 @import url(./modern-normalize.css);
 
+@font-face {
+    font-family: BebasNeue;
+    src: url(../font/BebasNeue-Regular.ttf);
+}
+
 html,
 body {
     height: 100%;
@@ -12,11 +17,15 @@ body {
 
 .content {
     flex: 1 0 auto;
-    padding-top: 50px;
 }
 
 header {
     text-align: center;
+    background-color: #60a5fa;
+    height: 80px;
+    font-family: BebasNeue;
+    font-weight: bold;
+    font-size: 70px;
 }
 
 footer {
@@ -26,7 +35,8 @@ footer {
 }
 
 .playerBoardSquare,
-.computerBoardSquare {
+.computerBoardSquare,
+.square {
     width: 50px;
     height: 50px;
     border: 1px solid;
@@ -75,6 +85,7 @@ footer {
 .start {
     display: flex;
     justify-content: center;
+    margin: 20px;
 }
 
 .gameContent {
@@ -114,12 +125,6 @@ footer {
     color: white;
 }
 
-.square {
-    width: 50px;
-    height: 50px;
-    border: 1px solid;
-}
-
 /* .carrierHorizontal, */
 #carrierPiece,
 #battleshipPiece,
@@ -127,6 +132,7 @@ footer {
 #submarinePiece,
 #destroyerPiece {
     background-color: #94a3b8;
+    margin: 20px;
 }
 
 .carrierHor,
@@ -163,8 +169,74 @@ footer {
     flex-direction: column;
 }
 
-.playerPiecesHor {}
+.dragHighlight {
+    background-color: #94a3b8;
+}
 
-.playerPiecesVert {
-    /* display: inline-flex; */
+@media screen and (max-width: 480px) {
+    .start {
+        margin: 10px;
+    }
+
+    .gameContent {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .playerBoard,
+    .computerBoard {
+        grid-template-columns: repeat(8, 35px);
+        width: auto;
+        margin: 20px;
+    }
+
+    .playerBoardSquare,
+    .computerBoardSquare,
+    .square {
+        width: 35px;
+        height: 35px;
+        border: 1px solid;
+    }
+
+    .resultAndReset {
+        margin: 50% auto;
+        width: 50%;
+        height: 40%;
+    }
+
+    #carrierPiece,
+    #battleshipPiece,
+    #cruiserPiece,
+    #submarinePiece,
+    #destroyerPiece {
+        margin: 5px;
+    }
+
+    .carrierHor {
+        width: 175px;
+    }
+
+    .battleshipHor {
+        width: 140px;
+    }
+
+    .cruiserHor,
+    .submarineHor {
+        width: 105px;
+    }
+
+    .destroyerHor {
+        width: 70px;
+    }
+
+    .playerPiecesHor {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .playerPiecesVert {
+        margin: auto;
+        text-align: center;
+    }
 }
