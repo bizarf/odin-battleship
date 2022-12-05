@@ -1,9 +1,5 @@
 @import url(./modern-normalize.css);
 
-div {
-    /* border: 1px solid black; */
-}
-
 html,
 body {
     height: 100%;
@@ -83,7 +79,6 @@ footer {
 
 .gameContent {
     display: flex;
-    /* align-items: center; */
 }
 
 .gameOverModal {
@@ -131,7 +126,6 @@ footer {
 #cruiserPiece,
 #submarinePiece,
 #destroyerPiece {
-    /* display: flex; */
     background-color: #94a3b8;
 }
 
@@ -165,10 +159,12 @@ footer {
 .cruiserVert,
 .submarineVert,
 .destroyerVert {
-    width: 50px;
+    display: inline-flex;
+    flex-direction: column;
 }
 
-/* .playerPieces {
-    display: grid;
-    grid-template-columns: repeat(5, 50px);
-} */
+.playerPiecesHor {}
+
+.playerPiecesVert {
+    /* display: inline-flex; */
+}
