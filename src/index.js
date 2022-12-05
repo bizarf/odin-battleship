@@ -5,6 +5,7 @@ export const human = new Player('human');
 export const computer = new Player('computer');
 dom.makePlayerBoardDOM();
 dom.makeComputerBoardDOM();
+dom.domBtnInit()
 
 export const gameLogic = () => {
     const computerBoardSquare = document.querySelectorAll('.computerBoardSquare');
@@ -29,7 +30,6 @@ export const gameLogic = () => {
                 return;
             }
         }
-        // human.endTurn()
         if (human.board.checkAllShipStatus() === false) {
             computer.computerPlay()
             dom.renderPlayerBoard()
@@ -45,12 +45,3 @@ export const gameLogic = () => {
         }
     }))
 }
-
-// gameover modal checker. remove when project is complete
-// const gameOverTest = document.querySelector('#gameOverTest')
-// const gameOverModal = document.querySelector('.gameOverModal')
-// gameOverTest.addEventListener('click', () => {
-//     gameOverModal.style.display = 'block'
-// })
-
-dom.domBtnInit()

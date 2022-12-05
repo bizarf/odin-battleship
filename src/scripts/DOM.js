@@ -110,6 +110,7 @@ const clearAndResetBoard = () => {
 const shipDragEnable = (() => {
     const shipDragAddEventListener = (ship) => {
         ship.addEventListener('dragstart', (e) => {
+            console.log(e)
             e.dataTransfer.setData('text', e.target.classList)
         })
     }
@@ -134,12 +135,19 @@ const shipDragEnable = (() => {
 // when the piece is dropped we get the classname from the above function. we also get the position from the dataset attribute. both of these pieces of info are then combined for use in the switch statement to ensure the player places their piece within the board, on a valid place, and in the direction that they want. 
 const shipPieceDropped = () => {
     const playerBoardSquare = document.querySelectorAll('.playerBoardSquare');
+    playerBoardSquare.forEach(square => square.addEventListener('dragleave', (e) => {
+        e.preventDefault()
+        square.classList.remove('dragHighlight')
+    }))
+
     playerBoardSquare.forEach(square => square.addEventListener('dragover', (e) => {
         e.preventDefault()
+        square.classList.add('dragHighlight')
     }))
 
     playerBoardSquare.forEach(square => square.addEventListener('drop', (e) => {
         e.preventDefault()
+        square.classList.remove('dragHighlight')
         const data = e.dataTransfer.getData('text');
         const x = parseInt(square.dataset.pos[0])
         const y = parseInt(square.dataset.pos[2])
@@ -265,7 +273,6 @@ const rotatePiecesBtn = () => {
     const rotatePiecesBtn = document.querySelector('#rotatePiecesBtn');
     rotatePiecesBtn.addEventListener('click', () => {
         if (playerPieces.className === 'playerPiecesHor') {
-            console.log('hor');
             playerPieces.classList = 'playerPiecesVert';
             carrier.classList = 'carrierVert';
             battleship.classList = 'battleshipVert';
@@ -273,7 +280,6 @@ const rotatePiecesBtn = () => {
             submarine.classList = 'submarineVert';
             destroyer.classList = 'destroyerVert';
         } else if (playerPieces.className === 'playerPiecesVert') {
-            console.log('vert');
             playerPieces.classList = 'playerPiecesHor';
             carrier.classList = 'carrierHor';
             battleship.classList = 'battleshipHor';
