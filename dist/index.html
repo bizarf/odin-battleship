@@ -14,12 +14,51 @@
     <header>Battleship</header>
     <div class="content">
         <div class="start">
-            <button id="startBtn">Start Game</button>
+            <button id="startBtn" disabled="true">Start Game</button>
+            <button id="gameOverTest">GameOver</button>
         </div>
         <div class="gameContent">
             <div class="playerBoard"></div>
             <div class="computerBoard"></div>
+            <div class="playerPieces">
+                <div><button id="playerTeamRandomizeBtn">Place pieces randomly</button></div>
+                <div id="carrierPiece" class="carrierHor" draggable="true">
+                    <div class="square"></div>
+                    <div class="square"></div>
+                    <div class="square"></div>
+                    <div class="square"></div>
+                    <div class="square"></div>
+                </div>
+                <div id="battleshipPiece" class="battleshipHor" draggable="true">
+                    <div class="square"></div>
+                    <div class="square"></div>
+                    <div class="square"></div>
+                    <div class="square"></div>
+                </div>
+                <div id="cruiserPiece" class="cruiserHor" draggable="true">
+                    <div class="square"></div>
+                    <div class="square"></div>
+                    <div class="square"></div>
+                </div>
+                <div id="submarinePiece" class="submarineHor" draggable="true">
+                    <div class="square"></div>
+                    <div class="square"></div>
+                    <div class="square"></div>
+                </div>
+                <div id="destroyerPiece" class="destroyerHor" draggable="true">
+                    <div class="square"></div>
+                    <div class="square"></div>
+                </div>
+            </div>
         </div>
+        <div class="gameOverModal">
+            <div class="resultAndReset">
+                <div class="winnerText">Game over placeholder</div>
+                <div>Would you like to play again?</div>
+                <div><button id="resetBtn">Reset</button></div>
+            </div>
+        </div>
+
     </div>
     <footer>Copyright @ 2022 Bizarf</footer>
 </body>

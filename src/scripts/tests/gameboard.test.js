@@ -1,7 +1,11 @@
 import Gameboard from "../gameboard";
 
+const board = new Gameboard();
+afterEach(() => {
+    board.resetBoard();
+});
+
 test('successfully places a few ships horizontally on the board', () => {
-    const board = new Gameboard();
     board.placeShip([0, 0], 'hor', 'carrier', 5);
     board.placeShip([2, 4], 'hor', 'cruiser', 3);
     board.placeShip([0, 5], 'hor', 'destroyer', 2);
@@ -15,7 +19,6 @@ test('successfully places a few ships horizontally on the board', () => {
 })
 
 test('successfully places a few ships vertically on the board', () => {
-    const board = new Gameboard();
     board.placeShip([0, 0], 'vert', 'carrier', 5);
     board.placeShip([5, 0], 'vert', 'destroyer', 2);
     board.placeShip([3, 4], 'vert', 'battleship', 4);
@@ -29,19 +32,16 @@ test('successfully places a few ships vertically on the board', () => {
 })
 
 test('fails to place a ship horizontally on the board', () => {
-    const board = new Gameboard();
     board.placeShip([0, 0], 'hor', 'carrier', 5);
     expect(board.placeShip([0, 2], 'hor', 'destroyer', 2)).toBe(false)
 })
 
 test('fails to place a ship vertically on the board', () => {
-    const board = new Gameboard();
     board.placeShip([0, 0], 'vert', 'carrier', 5);
     expect(board.placeShip([0, 2], 'vert', 'destroyer', 2)).toBe(false)
 })
 
 test('ship takes two hits', () => {
-    const board = new Gameboard();
     board.placeShip([0, 0], 'hor', 'carrier', 5);
     board.receiveAttack([0, 0]);
     board.receiveAttack([0, 4]);
@@ -51,7 +51,6 @@ test('ship takes two hits', () => {
 })
 
 test('miss is recorded on the board', () => {
-    const board = new Gameboard();
     board.placeShip([0, 0], 'vert', 'destroyer', 2);
     board.receiveAttack([6, 6]);
     expect(board.board[6][6].missedShot).toBe(true);
@@ -60,14 +59,12 @@ test('miss is recorded on the board', () => {
 })
 
 test('returns false if the square already has a hit or a missed shot recorded', () => {
-    const board = new Gameboard();
     board.placeShip([0, 0], 'hor', 'destroyer', 2);
     board.receiveAttack([0, 0]);
     expect(board.receiveAttack([0, 0])).toBe(false);
 })
 
 test('checks and returns true if all boats on the board have been sunk', () => {
-    const board = new Gameboard();
     board.placeShip([0, 0], 'vert', 'destroyer', 1);
     board.placeShip([0, 1], 'vert', 'battleship', 1);
     board.placeShip([0, 2], 'vert', 'cruiser', 1);
@@ -78,11 +75,20 @@ test('checks and returns true if all boats on the board have been sunk', () => {
 })
 
 test(`checks and returns false if all boats on the board haven't been sunk`, () => {
-    const board = new Gameboard();
     board.placeShip([0, 0], 'vert', 'destroyer', 1);
     board.placeShip([0, 1], 'vert', 'battleship', 1);
     board.placeShip([0, 2], 'vert', 'cruiser', 1);
     board.receiveAttack([0, 0]);
     board.receiveAttack([0, 1]);
     expect(board.checkAllShipStatus()).toBe(false);
+})
+
+test('returns true if all ships have been placed on the board', () => {
+    board.placeShipTeamRandomly();
+    expect(board.checkAllShipsPlaced()).toBe(true);
+})
+
+test('returns false if not all the ships have been placed on the board', () => {
+    board.battleshipPlaced = true;
+    expect(board.checkAllShipsPlaced()).toBe(false);
 })

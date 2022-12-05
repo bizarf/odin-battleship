@@ -28,7 +28,13 @@ class Gameboard {
 
     resetBoard() {
         this.board = [];
-        this.makeBoard()
+        this.makeBoard();
+        this.ships = [];
+        this.carrierPlaced = false;
+        this.battleshipPlaced = false;
+        this.cruiserPlaced = false;
+        this.submarinePlaced = false;
+        this.destroyerPlaced = false;
     }
 
     // place the ship on the board, and then push the ship object into the board's ship array. 
@@ -175,6 +181,10 @@ class Gameboard {
                 this.destroyerPlaced = true;
                 break;
         }
+    }
+
+    checkAllShipsPlaced() {
+        return (this.carrierPlaced === false || this.battleshipPlaced === false || this.cruiserPlaced === false || this.submarinePlaced === false || this.destroyerPlaced === false) ? false : true;
     }
 }
 

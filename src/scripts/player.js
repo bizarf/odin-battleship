@@ -1,7 +1,6 @@
 import Gameboard from "./gameboard";
 import {
     human,
-    computer
 } from "../index";
 
 class Player {
@@ -25,18 +24,6 @@ class Player {
             this.computerPlay();
         };
     }
-
-    endTurn() {
-        if (this.turn === true) {
-            this.turn = false;
-        };
-    };
-
-    startTurn() {
-        if (this.turn === false) {
-            this.turn = true;
-        };
-    };
 };
 
 export default Player;
